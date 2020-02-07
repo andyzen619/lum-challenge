@@ -1,5 +1,5 @@
 # lum-challenge
-##Get Started
+## Get Started
 1. Clone repository
 2. Install dependencies using `npm install`
 3. Intall Node
