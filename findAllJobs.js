@@ -1,6 +1,6 @@
 const fs = require("fs").promises;
 
-//Let n = user, m = jobs
+//Let k = user, n = jobs
 
 /**
  * Returns and object that groups jobs by tags
@@ -9,9 +9,8 @@ const fs = require("fs").promises;
 const getJobsByTags = jobs => {
   const tags = {};
 
-  //O(m)
+  //O(n)
   jobs.forEach(job => {
-    //O(3)
     job.tags.forEach(tag => {
       if (!tags[tag]) {
         tags[tag] = [job];
@@ -30,7 +29,7 @@ const getJobsByTags = jobs => {
  */
 const getJobsById = jobs => {
   const jobsById = {};
-  //O(m);
+  //O(n);
   jobs.forEach(job => {
     jobsById[job.id] = job;
   });
@@ -44,9 +43,8 @@ const getJobsById = jobs => {
  */
 const getJobsForUser = (user, tags) => {
   const userJobs = {};
-  //O(3)
   user.tags.forEach(tag => {
-    //O(m)
+    //O(n)
     tags[tag].forEach(job => {
       if (!userJobs[job.id]) {
         userJobs[job.id] = 1;
@@ -65,7 +63,7 @@ const getJobsForUser = (user, tags) => {
  * @param {*} user 
  */
 const printResults = (userJobs, jobsById, user) => {
-  //O(m)
+  //O(n)
   Object.keys(userJobs).forEach(key => {
     if (userJobs[key] >= 2) {
       console.log(`User ${user.id} matched to`, jobsById[key]);
@@ -80,11 +78,11 @@ const findAllJobs = async () => {
   const users = JSON.parse(await fs.readFile("users.json"));
   const jobs = JSON.parse(await fs.readFile("jobs.json"));
 
-  //O(m) each
+  //O(n) each
   const tags = getJobsByTags(jobs);
   const jobsById = getJobsById(jobs);
 
-  //O(n)
+  //O(k)
   users.forEach(user => {
     //O(m)
     const userJobs = getJobsForUser(user, tags);
