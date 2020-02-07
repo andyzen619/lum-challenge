@@ -84,7 +84,7 @@ const findAllJobs = async () => {
 
   //O(k)
   users.forEach(user => {
-    //O(m)
+    //O(n)
     const userJobs = getJobsForUser(user, tags);
     printResults(userJobs, jobsById, user);
   });
